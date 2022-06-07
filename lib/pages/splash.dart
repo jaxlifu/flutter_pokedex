@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pokedex/configs/constant.dart';
 import 'package:pokedex/main.dart';
 import 'package:pokedex/routes.dart';
 
@@ -30,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
           children: [
             _buildTitle(context),
             Lottie.asset(
-              'assets/lottie/pokedex_loading.json',
+              '${Constant.ASSETS_LOTTIES}pikachu_loading.json',
               width: 256,
               height: 256,
               fit: BoxFit.cover,

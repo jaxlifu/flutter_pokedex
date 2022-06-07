@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pokedex/configs/constant.dart';
 
-class PokedexImage extends AssetImage {
-  const PokedexImage(String name):super('assets/images/$name');
+class AppAssetImage extends AssetImage {
+  const AppAssetImage(String name) : super('${Constant.ASSETS_IMAGES}$name');
 }

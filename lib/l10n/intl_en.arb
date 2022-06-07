@@ -1,3 +1,6 @@
 {
-    "app_name": "Pokedex"
+    "app_name": "Pokedex",
+    "loading": "loading...",
+    "load_failed": "load failed",
+    "load_empty": "empty data"
 }
