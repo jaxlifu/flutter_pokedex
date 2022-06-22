@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/pages/home.dart';
+import 'package:pokedex/pages/pokemon_info.dart';
 import 'package:pokedex/pages/splash.dart';
 
 enum Routes {
-  splash(name: '/'),
-  home(name: '/home/');
+  splash(path: '/'),
+  home(path: '/home/'),
+  detail(path: '/home/detail/'),
+  unknown(path: '');
 
-  const Routes({required this.name});
-  final String name;
+  const Routes({required this.path});
+  final String path;
+
+  factory Routes.byPath(String path) {
+    try {
+      return Routes.values.singleWhere((element) => element.path == path);
+    } on Exception {
+      return Routes.unknown;
+    }
+  }
 }
 
 class RouteConfiguation {
@@ -16,19 +27,27 @@ class RouteConfiguation {
   static NavigatorState? get state => globalKey.currentState;
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    if (Routes.splash.name == settings.name) {
-      return MaterialPageRoute(builder: (context) => const SplashPage());
-    } else if (Routes.home.name == settings.name) {
-      return MaterialPageRoute(builder: (context) => const HomePage());
+    if (settings.name?.isEmpty == true) {
+      return null;
     }
-    return null;
+    final routes = Routes.byPath(settings.name!);
+    switch (routes) {
+      case Routes.splash:
+        return MaterialPageRoute(builder: (context) => const SplashPage());
+      case Routes.home:
+        return MaterialPageRoute(builder: (context) => const HomePage());
+      case Routes.detail:
+        return MaterialPageRoute(builder: ((context) => const PokemonInfo()));
+      case Routes.unknown:
+        return null;
+    }
   }
 
   static pop() => state?.pop();
 
   static push<T>(Routes route, [T? arguments]) =>
-      state?.pushNamed(route.name, arguments: arguments);
+      state?.pushNamed(route.path, arguments: arguments);
 
   static replaceWith<T>(Routes route, [T? arguments]) =>
-      state?.pushReplacementNamed(route.name, arguments: arguments);
+      state?.pushReplacementNamed(route.path, arguments: arguments);
 }

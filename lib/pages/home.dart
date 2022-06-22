@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pokedex/http/api.dart';
 import 'package:pokedex/module/pokemon.dart';
+import 'package:pokedex/pages/pokemon_info.dart';
+import 'package:pokedex/routes.dart';
 import 'package:pokedex/widgets/error_widget.dart';
 import 'package:pokedex/widgets/loading_widget.dart';
 import 'package:pokedex/widgets/pokeball_background.dart';
@@ -61,7 +63,12 @@ class _HomePageState extends State<HomePage> {
               itemCount: pokemons.length,
               itemBuilder: (BuildContext context, int index) {
                 final pokemon = pokemons[index];
-                return PokemonCard(pokemon: pokemon);
+                return PokemonCard(
+                  pokemon: pokemon,
+                  onPress: () {
+                    RouteConfiguation.push(Routes.detail);
+                  },
+                );
               },
             );
           } else if (snapshot.hasError) {
